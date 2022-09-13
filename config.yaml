@@ -6,18 +6,18 @@ googleAnalytics: ''
 disqusShortname: ''
 params:
   banner:
-    buttonText: Get Started
+    buttonText: Get to know Gian Marco
     subtitle: |-
       A RESPONSIVE SITE TEMPLATE DESIGNED BY HTML5 UP
       AND RELEASED UNDER THE CREATIVE COMMONS. #
-    title: Hi, my name is Gian Marco. I am Italian and I was born in May 1999.
+    title: Hi, my name is Gian Marco, pleased to meet you!
   blog: {}
   contact:
     address:
       - city: Bologna
         country: Italy
         street: Via Parigi
-        title: 2
+        title: Address
     buttonClear: Clear
     buttonSend: Send message
     email:
@@ -35,7 +35,7 @@ params:
     text: Please visit [this page](/)
   favicon: favicon.ico
   footer:
-    copyright: Company Name
+    copyright: Gian Marco Serra Enterprises
     enable: yes
     quicklinks:
       - alt: HTML5 UP
@@ -44,19 +44,19 @@ params:
     social:
       - icon: fa-twitter
         label: Twitter
-        url: https://www.twitter.com
-      - icon: fa-facebook
-        label: Facebook
-        url: https://www.facebook.com
-      - icon: fa-instagram
-        label: Instagram
-        url: https://www.instagram.com
+        url: https://twitter.com/gianma747
+     # - icon: fa-facebook
+      #  label: Facebook
+       # url: https://www.facebook.com
+     # - icon: fa-instagram
+      #  label: Instagram
+      #  url: https://www.instagram.com #
       - icon: fa-github
         label: GitHub
-        url: https://www.github.com
+        url: https://github.com/gianma747
       - icon: fa-linkedin
         label: LinkedIn
-        url: https://www.linkedin.com
+        url: www.linkedin.com/in/serra1999
   image: ''
   name: Your name
   navigation:
@@ -81,30 +81,30 @@ params:
   tiles:
     enable: yes
     showcase:
-      - image: pic01.jpg
-        subtitle: Ipsum Dolor Sit Amet
-        title: Aliquam
-        url: blogs/aliquam
-      - image: pic02.jpg
-        subtitle: Feugiat Amet Tempus
-        title: Tempus
-        url: blogs/tempus
+      - image: cravatta.jpg
+        subtitle: Read about Gian Marco's work experiences and endeavours
+        title: Curriculum Vitae
+        url: blogs/curriculum
+      - image: norway.jpg
+        subtitle: Witness Gian Marco's backpacking journey in the land of the Vikings
+        title:  Norway
+        url: blogs/norwaytrip
       - image: pic03.jpg
-        subtitle: Lorem Etiam Nullam
-        title: Magna
-        url: blogs/magna
-      - image: pic04.jpg
-        subtitle: Nisl Sed Aliquam
-        title: Ipsum
-        url: blogs/ipsum
-      - image: pic05.jpg
-        subtitle: Ipsum Dolor Sit Amet
-        title: Consequat
-        url: blogs/ipsum
+        subtitle: Enjoy some stuff Gian Marco has done with R
+        title: R Project
+        url: blogs/r-project
+      - image: books.jpg
+        subtitle: Read all about Gian Marco's book recommendations
+        title: Books
+        url: blogs/books
+      - image: pasta.jpg
+        subtitle: Get to appreciate Gian Marco's London restaurant recommendations
+        title: Foodie
+        url: blogs/foodstuff
       - image: pic06.jpg
-        subtitle: Feugiat Amet Tempus
-        title: Etiam
-        url: blogs/ipsum
+        subtitle: Enjoy some other stuff Gian Marco has done with R
+        title: R Project 2 
+        url: blogs/r-project-second
   two:
     buttonText: Get Started
     enable: yes

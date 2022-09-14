@@ -5,11 +5,11 @@ theme: forty
 googleAnalytics: ''
 disqusShortname: ''
 params:
-  banner:
+  banner: 
     buttonText: Get to know Gian Marco
     subtitle: |-
       A RESPONSIVE SITE TEMPLATE DESIGNED BY HTML5 UP
-      AND RELEASED UNDER THE CREATIVE COMMONS. #
+      AND RELEASED UNDER THE CREATIVE COMMONS.
     title: Hi, my name is Gian Marco, pleased to meet you!
   blog: {}
   contact:
@@ -82,37 +82,37 @@ params:
     enable: yes
     showcase:
       - image: cravatta.jpg
-        subtitle: Read about Gian Marco's work experiences and endeavours
-        title: Curriculum Vitae
-        url: blogs/curriculum
-      - image: norway.jpg
+        subtitle: Read  Gian Marco's CV and other endeavours
+        title: CV
+        url: blogs1
+      - image: DSC01525.JPG
         subtitle: Witness Gian Marco's backpacking journey in the land of the Vikings
         title:  Norway
-        url: blogs/norwaytrip
-      - image: pic03.jpg
+        url: blogs2
+      - image: pic03
         subtitle: Enjoy some stuff Gian Marco has done with R
         title: R Project
-        url: blogs/r-project
+        url: blogs3
       - image: books.jpg
         subtitle: Read all about Gian Marco's book recommendations
         title: Books
-        url: blogs/books
-      - image: pasta.jpg
-        subtitle: Get to appreciate Gian Marco's London restaurant recommendations
-        title: Foodie
-        url: blogs/foodstuff
-      - image: pic06.jpg
-        subtitle: Enjoy some other stuff Gian Marco has done with R
-        title: R Project 2 
-        url: blogs/r-project-second
+        url: blogs4
+    #  - image: pasta.jpg
+     #   subtitle: Get to appreciate Gian Marco's London restaurant recommendations
+      #  title: Foodie
+       # url: blogs/foodstuff
+    #  - image: pic06.jpg
+     #   subtitle: Enjoy some other stuff Gian Marco has done with R
+      #  title: R Project 2 
+       # url: blogs/r-project-second
   two:
-    buttonText: Get Started
+    buttonText: Gian's OnlyFans
     enable: yes
-    subtitle: "Nullam et orci eu lorem consequat tincidunt vivamus et sagittis libero.
-      \n    Mauris aliquet magna magna sed nunc rhoncus pharetra. \n    Pellentesque
-      condimentum sem. In efficitur ligula tate urna. Maecenas laoreet massa vel lacinia
-      pellentesque lorem ipsum dolor. \n    Nullam et orci eu lorem consequat tincidunt.
-      Vivamus et sagittis libero.\n    Mauris aliquet magna magna sed nunc rhoncus
-      amet pharetra et feugiat tempus."
+    subtitle: "Are You still curious about Gian Marco's life and endeavours?\n
+      Then You should consider minding your own business...but since You are here,
+      please take advantage and proceed to the Only Fans section: Gian Marco's blog. \n    
+      Here Gian Marco will post semi-regular updates on his life to display how much cooler it is than Yours ;P \n 
+      Any of the pictures displayed here will be the result of an accurate selection made to ensure than any viewer feels miserable when looking at them, in the hopes that You stop coming here.\n    Nullam et orci eu lorem consequat tincidunt.
+      Have a nice life mate."
     title: Massa libero
     url: blogs

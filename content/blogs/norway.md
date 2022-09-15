@@ -2,7 +2,7 @@
 title: "Gian Marco's Trip through Norway"
 description: "Read about Gian Marco's backpacking adventures through Norway or, as they call it, Nörge and see the marvellous views from Trolltunga: the 'Troll's tongue'"
 slug: "norway"
-image: norway3.png
+image: norway6.png
 
 keywords: ""
 categories: 
@@ -24,18 +24,14 @@ A very good time!
 We left the hoster in Mågelitopp at 6aM and got to Park 1, one of the closest to the mountain. From there we cycled two hours on our rented mountain bikes (tough on the legs - oof!) only to then have to then have to climb through the forest until we got to the beginning of the mountain.
 
 At this point we got out our gear and started climbing up! 
-The picture below is taken from a spot we found to rest in around half way through the via ferrata. 
+The picture below is taken from a spot we found to rest in around half way through the via ferrata. We stopped for lunch and took these amazing pics!
 
-We stopped for lunch and took these amazing pics!
+At the peak
 ---
-![](/img/norway6.jpg)
+Once we ended our break, we continued the via ferrata and, after another brief hike, we finally reached the peak! We obviously had to stop to take pictures. It's not every day that you're at the peak of a Norwegian fjord!
 
-a very good time
+My friend and I especially took a picture jumping on the "troll's tongue" (I'm the guy dressed in blue - picture at the top). 
 
----
-![](/img/norway6.png)
-![](/img/norway4.jpg)
-![](/img/norway6.jpg)
+Overall, the experience was a wild one! We tiered, we sweated, we got drenched (it rained a lot as well!) but , ultimately, we had a great time, which is the most important thing of all!
 
-
-
+Contact me if you want to know more!

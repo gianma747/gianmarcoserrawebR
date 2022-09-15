@@ -8,8 +8,6 @@ params:
   banner: 
     buttonText: Get to know Gian Marco
     subtitle: |-
-      A RESPONSIVE SITE TEMPLATE DESIGNED BY HTML5 UP
-      AND RELEASED UNDER THE CREATIVE COMMONS.
     title: Hi, my name is Gian Marco, pleased to meet you!
   blog: {}
   contact:
@@ -81,22 +79,22 @@ params:
   tiles:
     enable: yes
     showcase:
-      - image: cravatta.jpg
-        subtitle: Read  Gian Marco's CV and other endeavours
+      - image: senzacravatta.jpg
+        subtitle: Download  Gian Marco's CV and other endeavours
         title: CV
-        url: blogs1
+        url: docs/cv.pdf
       - image: DSC01525.JPG
-        subtitle: Witness Gian Marco's backpacking journey in the land of the Vikings
+        subtitle: Witness Gian Marco's backpacking journey in the tongue of the troll...
         title:  Norway
-        url: blogs2
-      - image: pic03
-        subtitle: Enjoy some stuff Gian Marco has done with R
-        title: R Project
-        url: blogs3
+        url: blogs/norway
+      - image: spotify.jpg
+        subtitle: See a breakdown of Gian Marco's music tastes done through R
+        title: Gian Marco's Music
+        url: blogs/myspotify
       - image: books.jpg
         subtitle: Read all about Gian Marco's book recommendations
         title: Books
-        url: blogs4
+        url: blogs/books
     #  - image: pasta.jpg
      #   subtitle: Get to appreciate Gian Marco's London restaurant recommendations
       #  title: Foodie
@@ -110,9 +108,9 @@ params:
     enable: yes
     subtitle: "Are You still curious about Gian Marco's life and endeavours?\n
       Then You should consider minding your own business...but since You are here,
-      please take advantage and proceed to the Only Fans section: Gian Marco's blog. \n    
+      please take advantage and proceed to the only fans section: Gian Marco's blog. \n    
       Here Gian Marco will post semi-regular updates on his life to display how much cooler it is than Yours ;P \n 
-      Any of the pictures displayed here will be the result of an accurate selection made to ensure than any viewer feels miserable when looking at them, in the hopes that You stop coming here.\n    Nullam et orci eu lorem consequat tincidunt.
+      Any of the pictures displayed here will be the result of an accurate selection made to ensure than any viewer feels miserable when looking at them, in the hopes that You stop coming here.\n 
       Have a nice life mate."
-    title: Massa libero
+    title: Gian Marco's message
     url: blogs

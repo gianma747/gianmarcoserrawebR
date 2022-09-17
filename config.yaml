@@ -79,38 +79,35 @@ params:
   tiles:
     enable: yes
     showcase:
+      - image: memoji.jpg
+        subtitle: Learn about Gian Marco's life and endeavours
+        title: About me
+        url: blogs/aboutme
       - image: senzacravatta.jpg
-        subtitle: Download  Gian Marco's CV and other endeavours
+        subtitle: Download  Gian Marco's CV 
         title: CV
         url: docs/cv.pdf
       - image: DSC01525.JPG
         subtitle: Witness Gian Marco's backpacking journey in the tongue of the troll...
         title:  Norway
         url: blogs/norway
-      - image: spotify.jpg
-        subtitle: See a breakdown of Gian Marco's music tastes done through R
-        title: Gian Marco's Music
-        url: blogs/myspotify
-      - image: books.jpg
-        subtitle: Read all about Gian Marco's book recommendations
-        title: Books
-        url: blogs/books
-    #  - image: pasta.jpg
-     #   subtitle: Get to appreciate Gian Marco's London restaurant recommendations
-      #  title: Foodie
-       # url: blogs/foodstuff
+      - image: imdb.png
+        subtitle: See a breakdown of IMDB's movies made by Gian Marco
+        title: Gian Marco's Movie Analysis
+        url: rstuff/imdbfiles
+      - image: renewable2.jpg
+        subtitle: Read all about Gian Marco's analysis of countries' energy provisioning
+        title: Renewable Resources Analysis
+        url: rstuff/climate
     #  - image: pic06.jpg
      #   subtitle: Enjoy some other stuff Gian Marco has done with R
       #  title: R Project 2 
        # url: blogs/r-project-second
   two:
-    buttonText: Gian's OnlyFans
+    buttonText: Learn More about Gian Marco
     enable: yes
     subtitle: "Are You still curious about Gian Marco's life and endeavours?\n
-      Then You should consider minding your own business...but since You are here,
-      please take advantage and proceed to the only fans section: Gian Marco's blog. \n    
-      Here Gian Marco will post semi-regular updates on his life to display how much cooler it is than Yours ;P \n 
-      Any of the pictures displayed here will be the result of an accurate selection made to ensure than any viewer feels miserable when looking at them, in the hopes that You stop coming here.\n 
-      Have a nice life mate."
+      Born in Bologna, Gian Marco has lived in three countries, studied at three universities and received two degrees. \n    
+      Here Gian Marco will post semi-regular updates on his life. Gian Marco hopes to see you around ;) \n"
     title: Gian Marco's message
     url: blogs

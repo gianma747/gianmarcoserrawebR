@@ -12,7 +12,22 @@ title: Gian Marco's Energy Analysis
 
 # Renewable energy analysis
 
-Loading all useful libraries:
+```{r, setup, echo=FALSE}
+knitr::opts_chunk$set(
+  message = FALSE, 
+  warning = FALSE, 
+  tidy=FALSE,     # display code as typed
+  size="small")   # slightly smaller font for code
+options(digits = 3)
+
+# default figure size
+knitr::opts_chunk$set(
+  fig.width=6.75, 
+  fig.height=6.75,
+  fig.align = "center"
+)
+```
+
 ```{r load-libraries, warning=FALSE, message=FALSE, echo=FALSE}
 library(tidyverse)  # Load ggplot2, dplyr, and all the other tidyverse packages
 library(lubridate)
@@ -29,7 +44,7 @@ library(ggrepel)
 
 The National Bureau of Economic Research (NBER) has a a very interesting dataset on the adoption of about 200 technologies in more than 150 countries since 1800. This is the Cross-country  Historical Adoption of Technology (CHAT) dataset.
 
-```{r, setup, echo=FALSE}
+```{r, setup, read_file}
 technology <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-07-19/technology.csv')
 
 #get all technologies

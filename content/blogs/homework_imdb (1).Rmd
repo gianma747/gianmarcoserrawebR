@@ -1,0 +1,227 @@
+---
+categories:  
+- ""    #the front matter should be like the one found in, e.g., blog2.md. It cannot be like the normal Rmd we used
+- ""
+date: "2021-09-30"
+description: Project 2. # the title that will show up once someone gets to this page
+draft: false
+image: energy.jpg # save picture in \static\img\blogs. Acceptable formats= jpg, jpeg, or png . Your iPhone pics wont work
+
+keywords: ""
+slug: homework_imdb # slug is the shorthand URL address... no spaces plz
+title: Share of renewable energy production in the world
+---
+
+```{r, setup, include=FALSE}
+knitr::opts_chunk$set(
+  message = FALSE, 
+  warning = FALSE, 
+  tidy=FALSE,     # display code as typed
+  size="small")   # slightly smaller font for code
+options(digits = 3)
+
+# default figure size
+knitr::opts_chunk$set(
+  fig.width=6.75, 
+  fig.height=6.75,
+  fig.align = "center"
+)
+
+```
+
+
+```{r load-libraries, include=FALSE}
+library(tidyverse)  # Load ggplot2, dplyr, and all the other tidyverse packages
+library(mosaic)
+library(ggthemes)
+library(lubridate)
+library(here)
+library(skimr)
+library(janitor)
+library(httr)
+library(readxl)
+library(vroom)
+library(wbstats)
+library(countrycode)
+library(patchwork)
+library(gganimate)
+library(infer)
+library(lubridate)
+library(knitr)
+library(mosaic)
+library(stats)
+library(corrr)
+library(gganimate)
+library(gifski)
+library(png)
+
+```
+
+```{r load_technology_data, include=FALSE}
+
+technology <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-07-19/technology.csv')
+
+#get all technologies
+labels <- technology %>% 
+  distinct(variable, label)
+
+# Get country names using 'countrycode' package
+technology <- technology %>% 
+  filter(iso3c != "XCD") %>% 
+  mutate(iso3c = recode(iso3c, "ROM" = "ROU"),
+         country = countrycode(iso3c, origin = "iso3c", destination = "country.name"),
+         country = case_when(
+           iso3c == "ANT" ~ "Netherlands Antilles",
+           iso3c == "CSK" ~ "Czechoslovakia",
+           iso3c == "XKX" ~ "Kosovo",
+           TRUE           ~ country))
+
+#make smaller dataframe on energy
+energy <- technology %>% 
+  filter(category == "Energy")
+
+# download CO2 per capita from World Bank using {wbstats} package
+# https://data.worldbank.org/indicator/EN.ATM.CO2E.PC
+co2_percap <- wb_data(country = "countries_only", 
+                      indicator = "EN.ATM.CO2E.PC", 
+                      start_date = 1970, 
+                      end_date = 2022,
+                      return_wide=FALSE) %>% 
+  filter(!is.na(value)) %>% 
+  #drop unwanted variables
+  select(-c(unit, obs_status, footnote, last_updated))
+
+# get a list of countries and their characteristics
+# we just want to get the region a country is in and its income level
+countries <-  wb_cachelist$countries %>% 
+  select(iso3c,region,income_level)
+
+```
+
+# Analysis of movies- IMDB dataset
+
+We will look at a subset sample of movies, taken from the [Kaggle IMDB 5000 movie dataset](https://www.kaggle.com/carolzhangdc/imdb-5000-movie-dataset) . This data set is extremely up-to-date and contains the top 5000 movies 
+
+```{r,load_movies, warning=FALSE, message=FALSE, eval=FALSE}
+
+movies <- read_csv(here::here("data", "movies.csv"))
+glimpse(movies)
+
+```
+
+Besides the obvious variables of `title`, `genre`, `director`, `year`, and `duration`, the rest of the variables are as follows:
+
+-   `gross` : The gross earnings in the US box office, not adjusted for inflation
+-   `budget`: The movie's budget
+-   `cast_facebook_likes`: the number of facebook likes cast memebrs received
+-   `votes`: the number of people who voted for (or rated) the movie in IMDB
+-   `reviews`: the number of reviews for that movie
+-   `rating`: IMDB average rating
+
+Now I will proceed to go through the dataset to look for and eliminate any doubles. Imdb is a website where users write up the movie pages, so it is very possible that multiple pages may have been created for the same movie. I will hence proceed to only keep the first entry I find for each movie. 
+
+```{r,load_movies}
+
+# Look at movies dataset summary statistics
+movies <- read_csv(here::here("data", "movies.csv"))
+skim(movies) 
+
+# Find missing values of movies
+sum(is.na(movies)) # found no missing values
+
+# Find duplicate entries
+sum(duplicated(movies)) #found all entries to be unique
+
+# Find duplicated titles
+summarise(movies, n_distinct(title)) # found only 2907 unique titles
+
+summarise(movies, n()) #returned 2961 - hence showing some duplicates in titles
+
+# Drop all duplicated titles
+movies_distinct <- distinct(movies, title, .keep_all = TRUE) #kept only first row of duplicate titles
+```
+Having dropped all the double entries for the movies, I will proceed to analyze movie genres. Specifically, I want to see which genres are most popular and create a rank.
+
+```{r,load_movies, missing_values}
+
+# Summarise count of movies by genre. then arrange to rank in descending order
+count_genre <- movies_distinct %>% #using first row of unique entries only
+  group_by(genre) %>%
+  summarise(count = n()) %>%
+  arrange(desc(count))
+
+# Display table
+count_genre
+```
+As is evident, the most popular movie genres are far and away action and comedy movies. This begs the question whether these movie genres, evidently more in demand, also make the studios which produce them more money, i.e. how profitable are they?
+
+```{r, gross_on_budget}
+# Calculate per genre return_on_budget variable and sort for descending order
+return_on_budget <- movies_distinct %>% #using first row of unique entries only
+  group_by(genre) %>%
+  summarise(average_gross = mean(gross), average_budget = mean(budget)) %>%
+  mutate(return_on_budget = average_gross/average_budget) %>% #calculate average return on budget by genre
+  arrange(desc(return_on_budget))
+
+# Display table
+return_on_budget 
+```
+
+Indeed, they may be the two most popular genres, but they are not even close to being the most profitable genres. Musical, Family and Western movies are far and away more profitable on average, with musicals having a return on investment (budget) of a whopping 28.9 times! 
+I will now proceed to see which directors have produced the highest grossing movies, specifically, the top 15 directors: 
+```{r, gross_by_director}
+# Find top 15 directors with the highest gross revenue, and the summary statistics of all their movies
+top_directors <- movies_distinct %>%
+  group_by(director) %>%
+  summarise(total_gross = sum(gross), mean_gross = mean(gross), median_gross = median(gross), std_gross = sd(gross)) %>%
+  arrange(desc(total_gross)) %>%
+  top_n(n = 15, wt = total_gross)
+
+# Display table
+top_directors
+```
+Finally, ratings. I have produced a table that describes how ratings are distributed by genre. I didn't just want the mean, but also, minimum, maximum, median, standard deviation and some kind of a histogram or density graph that visually shows how ratings are distributed.
+
+```{r, gross_on_rating}
+# Generate table of summary statistics of ratings for movies in genres
+movies_ratings <- movies_distinct %>%
+  group_by(genre) %>%
+  summarise(mean_rating = mean(rating), min_rating = min(rating), max_rating = max(rating), median_rating = median(rating), std_rating = sd(rating))
+
+# Display table
+movies_ratings
+
+# Plot ratings table by genre
+ggplot(movies_distinct, aes(x = rating, fill = genre)) +
+  geom_histogram() +
+  facet_wrap(~genre) +
+  theme_bw() +
+  theme(legend.position="none") +
+  labs(y = NULL, x = "Rating", title = "Histogram of movie ratings by genre")
+```
+
+Ultimately, there is no visible correlation between the two variables, as casts with low facebook likes have made movies with both high and low gross revenue. Gross variable should be on the y-axis, as it is the outcome variable in this case.
+```{r, gross_on_budget}
+
+# Plot of gross revenue of film against budget of firm
+ggplot(movies_distinct,
+       aes(x = budget,
+           y = gross)) +
+  geom_point()+
+  labs(title="Relationship between gross and budget", x="Movie's budget",y="Gross earnings in US box office")
+```
+
+Finally, I want to examine the relationship between gross and rating. I will hence produce a scatterplot, faceted by genre and discuss whether IMDB ratings are likely to be a good predictor of how much money a movie will make at the box office. 
+
+```{r, gross_on_budget}
+
+# Plot of ratings and gross revenue, by genre
+ggplot(movies_distinct,
+       aes(x = rating,
+           y = gross)) +
+  geom_point() +
+  facet_wrap(~ genre)+
+  labs(title="Relationship between `gross` and `rating`",x="IMDB average rating",y="Gross earnings in US box office")
+```
+##Conclusion:
+Ultimately, looking at the graphs which come out of the analysis, it is clear that there is no real relationship between movie grosses and ratings on IMDB. The movie industry really is unpredictable!

@@ -94,11 +94,11 @@ params:
       - image: imdb.png
         subtitle: See a breakdown of IMDB's movies made by Gian Marco
         title: Gian Marco's Movie Analysis
-        url: rstuff/imdbfiles
+        url: rstuff/homework_imdb
       - image: renewable2.jpg
         subtitle: Read all about Gian Marco's analysis of countries' energy provisioning
         title: Renewable Resources Analysis
-        url: rstuff/climate
+        url: rstuff/homework_energy
     #  - image: pic06.jpg
      #   subtitle: Enjoy some other stuff Gian Marco has done with R
       #  title: R Project 2 

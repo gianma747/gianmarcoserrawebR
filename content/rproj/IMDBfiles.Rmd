@@ -2,6 +2,7 @@
 title: Gian Marco's Movie Analysis
 categories:  
 - ""    #the front matter should be like the one found in, e.g., blog2.md. It cannot be like the normal Rmd we used
+- ""
 date: "2021-09-30"
 description: Analysis of movies - IMDB dataset # the title that will show up once someone gets to this page
 draft: false
@@ -140,16 +141,6 @@ ggplot(movies_distinct, aes(x = rating, fill = genre)) +
   theme_bw() +
   theme(legend.position="none") +
   labs(y = NULL, x = "Rating", title = "Histogram of movie ratings by genre")
-```
-I now want to check out the relationship between movie grosses and how many likes they receive on facebook, with the latter being a proxy measurement for "word of mouth". 
-```{r, gross_on_fblikes}
-
-# Plot of gross revenue against cast facebook likes
-ggplot(movies_distinct,
-       aes(x = cast_facebook_likes,
-           y = gross)) +
-  geom_point()+
-  labs(title="Relationship between gross and cast_facebook_likes",x="Number of facebook likes
 ```
 
 Ultimately, there is no visible correlation between the two variables, as casts with low facebook likes have made movies with both high and low gross revenue. Gross variable should be on the y-axis, as it is the outcome variable in this case.

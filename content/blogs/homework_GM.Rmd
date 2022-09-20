@@ -5,11 +5,10 @@ categories:
 date: "2021-09-30"
 description: Project 2. # the title that will show up once someone gets to this page
 draft: false
-image: energy.jpg 
-# save picture in \static\img\blogs. Acceptable formats= jpg, jpeg, or png . Your iPhone pics wont work
+image: energy.jpg # save picture in \static\img\blogs. Acceptable formats= jpg, jpeg, or png . Your iPhone pics wont work
 
 keywords: ""
-slug: renewable # slug is the shorthand URL address... no spaces plz
+slug: homework_energy # slug is the shorthand URL address... no spaces plz
 title: Share of renewable energy production in the world
 ---
 
@@ -208,46 +207,6 @@ res_plot <- top_res_plot / bot_res_plot +
                   caption = "Source: NBER CHAT Database") 
 
 res_plot
-```
-
-Creating an animation to explore the relationship between CO2 per capita emissions and the deployment of renewables.
-
- 
-```{r animation-self, out.width="100%"}
-
-#Create a pivot wider format and add new column
-energy_move <- energy %>% 
-  select(country, variable, value, year) %>% 
-  pivot_wider(names_from = variable, values_from = value) %>% 
-  mutate(percent_new = (elec_hydro+elec_solar+elec_wind+elec_renew_other)/elecprod *100) 
-
-# Select only interested columns in energy chart
-energy_pc_filtered <- energy_move %>% 
-  select(year, country, percent_new)
-  
-# Select only interested columns in co2 chart
-co2_pc_filtered <- co2_percap %>% 
-  select(country, date, value, iso3c) %>% 
-  rename(year = date)
-
-# Join the tables (energy, co2, and income_level)
-energy_combined1 <- left_join(energy_pc_filtered, co2_pc_filtered, by = c("country", "year"))
-energy_combined2 <- left_join(energy_combined1, countries, by = c("iso3c"))
-
-# Create visualization (packages required)
-energy_combined2 %>% 
-  mutate(year = as.integer(year)) %>% 
-  filter(year>=1990, !is.na(income_level)) %>% 
-  ggplot(aes(x=percent_new, y=value, color = income_level))+
-  geom_point()+
-  theme_light()+
-  theme(legend.position="none")+
-  facet_wrap(~income_level) +
-  labs(title = 'Year: {frame_time}' 
-      ) +
-  transition_time(year) +
-  ease_aes('linear')
-
 ```
 
 

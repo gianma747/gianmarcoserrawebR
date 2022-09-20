@@ -93,12 +93,12 @@ params:
         url: blogs/norway
       - image: imdb.png
         subtitle: See a breakdown of IMDB's movies made by Gian Marco
-        title: Gian Marco's Movie Analysis
-        url: rstuff/homework_imdb
+        title: Gian Marco's GDP-Housing Analysis
+        url: rproj/movies
       - image: renewable2.jpg
         subtitle: Read all about Gian Marco's analysis of countries' energy provisioning
         title: Renewable Resources Analysis
-        url: blogs/renewable
+        url: blogs/homework_energy
     #  - image: pic06.jpg
      #   subtitle: Enjoy some other stuff Gian Marco has done with R
       #  title: R Project 2 

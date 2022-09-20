@@ -1,0 +1,155 @@
+---
+categories:  
+- ""    #the front matter should be like the one found in, e.g., blog2.md. It cannot be like the normal Rmd we used
+- ""
+date: "2021-09-30"
+description: Project 2. # the title that will show up once someone gets to this page
+draft: false
+image: energy.jpg # save picture in \static\img\blogs. Acceptable formats= jpg, jpeg, or png . Your iPhone pics wont work
+
+keywords: ""
+slug: homework_energy # slug is the shorthand URL address... no spaces plz
+title: Share of renewable energy production in the world
+---
+
+
+
+<p>The National Bureau of Economic Research (NBER) has a a very interesting dataset on the adoption of about 200 technologies in more than 150 countries since 1800. This is the Cross-country Historical Adoption of Technology (CHAT) dataset.</p>
+<div id="creating-of-a-graph-with-the-countries-with-the-highest-and-lowest-contribution-of-renewables-in-energy-production." class="section level2">
+<h2>Creating of a graph with the countries with the highest and lowest % contribution of renewables in energy production.</h2>
+<pre class="r"><code>energy &lt;- energy %&gt;% 
+  
+  #filteting out the NAs
+  filter(!is.na(value))
+
+#Top 20 countries with highest % contribution of renewables in energy production
+
+top_res &lt;- energy %&gt;% 
+  
+  # dropping unnessecary columns
+  select(-c(label, iso3c, group, category)) %&gt;% 
+  
+  #pivoting dataset wider
+  pivot_wider(names_from = &quot;variable&quot;,
+              values_from = &quot;value&quot;) %&gt;% 
+  
+  #filtering year 2019
+  filter(year == 2019) %&gt;% 
+  
+  #grouping by country
+  group_by(country) %&gt;% 
+  
+  #calculating the % of renewables in energy production
+  summarise(total_res_perc = sum(elec_hydro, elec_solar, elec_wind, elec_renew_other)/ sum(elecprod)) %&gt;% 
+  
+  #arranging in descending order 
+  arrange(desc(total_res_perc)) %&gt;% 
+  
+  #choosing top 20 countries
+  head(20)
+
+
+#Creating plot with Top 20 countries with highest % contribution of renewables in energy production
+
+top_res_plot &lt;- ggplot(top_res, 
+       aes(x = total_res_perc, 
+           y = fct_reorder(country, total_res_perc))) +
+  geom_col() +
+     labs(subtitle = &quot;Highest&quot;,
+       x = NULL, 
+       y = NULL) +
+  theme_light() +
+  theme(legend.position = &quot;none&quot;) +
+  scale_x_continuous(labels = scales::percent) +
+  NULL
+
+
+#Top 20 countries with lowest % contribution of renewables in energy production
+
+bot_res &lt;- energy %&gt;% 
+  
+  # dropping unnessecary columns
+  select(-c(label, iso3c, group, category)) %&gt;% 
+  
+  #pivoting dataset wider
+  pivot_wider(names_from = &quot;variable&quot;,
+              values_from = &quot;value&quot;) %&gt;% 
+  
+  #filtering year 2019
+  filter(year == 2019) %&gt;% 
+  
+  #grouping by country
+  group_by(country) %&gt;% 
+  
+  #calculating the % of renewables in energy production
+  summarise(total_res_perc = sum(elec_hydro, elec_solar, elec_wind, elec_renew_other)/ sum(elecprod)) %&gt;% 
+  
+  #arranging in ascending order 
+  arrange(total_res_perc) %&gt;% 
+  
+  #choosing top 20 countries
+  head(20)
+
+
+#Creating plot with Top 20 countries with lowest % contribution of renewables in energy production
+
+bot_res_plot &lt;- ggplot(bot_res, 
+       aes(x = total_res_perc, 
+           y = fct_reorder(country, total_res_perc))) +
+  geom_col() +
+     labs(subtitle = &quot;Lowest&quot;,
+       x = NULL, 
+       y = NULL) +
+  theme_light() +
+  theme(legend.position = &quot;none&quot;) +
+  scale_x_continuous(labels = scales::percent) +
+  NULL
+
+
+
+#joining two plots together with &#39;patchwork&#39;
+
+res_plot &lt;- top_res_plot / bot_res_plot + 
+  plot_annotation(title = &quot;Highest and lowest % of renewables in energy production&quot;,
+                  subtitle = &quot;2019 data&quot;,
+                  caption = &quot;Source: NBER CHAT Database&quot;) 
+
+res_plot</code></pre>
+<p><img src="/blogs/homework_GM_files/figure-html/min-max_renewables-self-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>Creating an animation to explore the relationship between CO2 per capita emissions and the deployment of renewables.</p>
+<pre class="r"><code>#Create a pivot wider format and add new column
+energy_move &lt;- energy %&gt;% 
+  select(country, variable, value, year) %&gt;% 
+  pivot_wider(names_from = variable, values_from = value) %&gt;% 
+  mutate(percent_new = (elec_hydro+elec_solar+elec_wind+elec_renew_other)/elecprod *100) 
+
+# Select only interested columns in energy chart
+energy_pc_filtered &lt;- energy_move %&gt;% 
+  select(year, country, percent_new)
+  
+# Select only interested columns in co2 chart
+co2_pc_filtered &lt;- co2_percap %&gt;% 
+  select(country, date, value, iso3c) %&gt;% 
+  rename(year = date)
+
+# Join the tables (energy, co2, and income_level)
+energy_combined1 &lt;- left_join(energy_pc_filtered, co2_pc_filtered, by = c(&quot;country&quot;, &quot;year&quot;))
+energy_combined2 &lt;- left_join(energy_combined1, countries, by = c(&quot;iso3c&quot;))
+
+# Create visualization (packages required)
+energy_combined2 %&gt;% 
+  mutate(year = as.integer(year)) %&gt;% 
+  filter(year&gt;=1990, !is.na(income_level)) %&gt;% 
+  ggplot(aes(x=percent_new, y=value, color = income_level))+
+  geom_point()+
+  theme_light()+
+  theme(legend.position=&quot;none&quot;)+
+  facet_wrap(~income_level) +
+  labs(title = &#39;Year: {frame_time}&#39; 
+      ) +
+  transition_time(year) +
+  ease_aes(&#39;linear&#39;)</code></pre>
+<p><img src="/blogs/homework_GM_files/figure-html/animation-self-1.gif" width="100%" style="display: block; margin: auto;" /></p>
+<p><strong>Conclusion:</strong>
+Looking at the data and the correlations which were found, it is clear that an increase in the use of renewable energy resources helps pull down CO2 emissions by up to 33%.This makes intuitive sense and should serve to push investment in renewable energy technologies.</p>
+</div>

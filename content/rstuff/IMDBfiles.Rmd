@@ -7,9 +7,10 @@ description: Analysis of movies - IMDB dataset # the title that will show up onc
 draft: false
 image: imdb.png # save picture in \static\img\blogs. Acceptable formats= jpg, jpeg, or png . Your iPhone pics wont work
 keywords: ""
-slug: imdbfiles # slug is the shorthand URL address... no spaces plz
+slug: movies # slug is the shorthand URL address... no spaces plz
 ---
-  ```{r, setup, echo=FALSE}
+
+```{r, setup, echo=FALSE}
 knitr::opts_chunk$set(
   message = FALSE, 
   warning = FALSE, 

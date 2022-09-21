@@ -94,7 +94,7 @@ params:
       - image: imdb.png
         subtitle: See a breakdown of IMDB's movies made by Gian Marco
         title: Gian Marco's GDP-Housing Analysis
-        url: rproj/movies
+        url: blogs/movies
       - image: renewable2.jpg
         subtitle: Read all about Gian Marco's analysis of countries' energy provisioning
         title: Renewable Resources Analysis

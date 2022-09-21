@@ -63,7 +63,7 @@ Besides the obvious variables of `title`, `genre`, `director`, `year`, and `dura
 
 Now I will proceed to go through the dataset to look for and eliminate any doubles. Imdb is a website where users write up the movie pages, so it is very possible that multiple pages may have been created for the same movie. I will hence proceed to only keep the first entry I find for each movie. 
 
-```{r,load_movies}
+```{r,find_data}
 
 # Look at movies dataset summary statistics
 movies <- read_csv(here::here("data", "movies.csv"))
@@ -85,7 +85,7 @@ movies_distinct <- distinct(movies, title, .keep_all = TRUE) #kept only first ro
 ```
 Having dropped all the double entries for the movies, I will proceed to analyze movie genres. Specifically, I want to see which genres are most popular and create a rank.
 
-```{r,load_movies, missing_values}
+```{r,cleaning, missing_values}
 
 # Summarise count of movies by genre. then arrange to rank in descending order
 count_genre <- movies_distinct %>% #using first row of unique entries only
@@ -144,7 +144,7 @@ ggplot(movies_distinct, aes(x = rating, fill = genre)) +
 ```
 
 Ultimately, there is no visible correlation between the two variables, as casts with low facebook likes have made movies with both high and low gross revenue. Gross variable should be on the y-axis, as it is the outcome variable in this case.
-```{r, gross_on_budget}
+```{r, gross_other}
 
 # Plot of gross revenue of film against budget of firm
 ggplot(movies_distinct,
@@ -156,7 +156,7 @@ ggplot(movies_distinct,
 
 Finally, I want to examine the relationship between gross and rating. I will hence produce a scatterplot, faceted by genre and discuss whether IMDB ratings are likely to be a good predictor of how much money a movie will make at the box office. 
 
-```{r, gross_on_budget}
+```{r, gross_by_genre}
 
 # Plot of ratings and gross revenue, by genre
 ggplot(movies_distinct,
